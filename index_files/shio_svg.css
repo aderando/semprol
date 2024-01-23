@@ -1,0 +1,75 @@
+.shio-button {
+    width: 70px;
+    height: 70px;
+    border: 1px solid #0ca2bf;
+    margin-right: 5px;
+    border-radius: 10px;
+    margin-left: 5px;
+    background: #001314;
+}
+.shio-caption h3 {
+    font-size: 14px;
+    margin: 0;
+    margin-top: 5px;
+}
+.svg-icon {
+    width: 100%;
+    height: 100%;
+}
+.shio-flex {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 11px;
+}
+.shio-caption {
+    text-align: center;
+}
+.shio-button > .svg-ayam {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/ayam.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/ayam.svg');
+}
+.shio-button > .svg-kambing {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/kambing.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/kambing.svg');
+}
+.shio-button > .svg-naga {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/naga.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/naga.svg');
+}
+.shio-button > .svg-kelinci {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/kelinci.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/kelinci.svg');
+}
+.shio-button > .svg-harimau {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/harimau.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/harimau.svg');
+}
+.shio-button > .svg-kerbau {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/kerbau.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/kerbau.svg');
+}
+.shio-button > .svg-tikus {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/tikus.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/tikus.svg');
+}
+.shio-button > .svg-anjing {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/anjing.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/anjing.svg');
+}
+.shio-button > .svg-babi {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/babi.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/babi.svg');
+}
+.shio-button > .svg-kuda {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/kuda.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/kuda.svg');
+}
+.shio-button > .svg-monyet {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/monyet.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/monyet.svg');
+}
+.shio-button > .svg-ular {
+    -webkit-mask-image: url('/assets/img/wlb2c/icons/shio/ular.svg');
+    mask-image: url('/assets/img/wlb2c/icons/shio/ular.svg');
+}

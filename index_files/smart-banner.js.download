@@ -1,0 +1,132 @@
+var smartBanner = {
+    appIcon: '',
+    bannerContainer: '.app-container',
+    daysToHide: 7,
+    downloadIOS: '',
+    downloadAndroid: '',
+    slogan: '',
+    title: '',
+
+    init: function (options) {
+        if (smartBanner.isSupportDevice() && $.cookie('hideSmartBanner') !== 'true') {
+            $.extend(smartBanner, options);
+            smartBanner.createBanner();
+        }
+    },
+
+    createBanner: function () {
+        var html = '<div id="smart_banner" style="display: none;">';
+        html += '<div class="app_icon"><img src="' + smartBanner.appIcon + '" alt="App Icon"></div>';
+        html += '<div class="app_info"><div class="app_title">' + smartBanner.title + '</div><div class="app_slogan">' + smartBanner.slogan + '</div></div>';
+        html += '<div class="download_button"><a href="' + (smartBanner.isAndroid() ? smartBanner.downloadAndroid : smartBanner.downloadIOS) + '" title="Download" class="btn btn-green" onclick="smartBanner.destroyBanner()">Download</a></div>';
+        html += '<span class="close_button" onclick="smartBanner.destroyBanner()">&times;</span>'
+        html += '</div>';
+
+        $(smartBanner.bannerContainer).prepend(html);
+        smartBanner.createStyles();
+        $('.smartb1').addClass('shead');
+        $('.smartb2').addClass('sindex');
+        $('.smartb3').addClass('slc');
+        $('.smartb4').addClass('scontent');
+    },
+
+    createCookie: function () {
+        $.cookie('hideSmartBanner', 'true', smartBanner.daysToHide);
+    },
+
+    createStyles: function () {
+        $('#smart_banner').css({
+            position: 'fixed',
+            width: '100%',
+            padding: '10px',
+            'font-family': 'Verdana, arial, sans-serif',
+            color: '#000',
+            background: '#fff',
+			height: 'inherit',
+            transition: 'width 2s',
+            '-webkit-transition': 'width 2s',
+            'transition-property': 'all',
+            'transition-duration': '.5s',
+            'transition-timing-function': 'cubic-bezier(0, 1, 0.5, 1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+        });
+        $('#smart_banner img').css({
+            display: 'block',
+            'max-width': '100%'
+        });
+        $('#smart_banner .app_icon').css({
+            width: '64px',
+            margin: '0 0 0 20px'
+        });
+        $('#smart_banner .app_info').css({
+            position: 'absolute',
+            left: '104px',
+            top: '20px',
+        });
+        $('#smart_banner .app_title').css({
+            'font-size': '12px'
+        });
+        $('#smart_banner .app_slogan').css({
+            'font-size': '10px',
+            color: '#666'
+        });
+        $('#smart_banner .download_button a').css({
+            padding: '13px 10px',
+            color: '#fff',
+            'background-color': 'rgb(44, 147, 148)',
+            'border-radius': '7px'
+        });
+        $('#smart_banner .close_button').css({
+            position: 'absolute',
+            display: 'block',
+            top: '8px',
+            left: '0px',
+            width: '30px',
+            height: '64px',
+            color: '#666',
+            'text-align': 'center',
+            'font-size': '18px',
+            'line-height': '64px'
+        });
+
+        $('#smart_banner').slideDown('slow');
+    },
+
+    destroyBanner: function () {
+        $('.app-container').hide('1000');
+        $('.smartb1').removeClass('shead');
+        $('.smartb2').removeClass('sindex');
+        $('.smartb3').removeClass('slc');
+        $('.smartb4').removeClass('scontent');
+        $('.app-container').remove();
+
+        smartBanner.createCookie();
+
+        return false;
+    },
+
+    showBanner: function () {
+        $('#smart_banner').slideDown('slow');
+    },
+
+    hideBanner: function () {
+        $('#smart_banner').hide('1000');
+    },
+
+    isSupportDevice: function () {
+        // android and ios
+        return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    },
+
+    isAndroid: function () {
+        // android and ios
+        return /Android/i.test(navigator.userAgent);
+    },
+
+    isIOS: function () {
+        // android and ios
+        return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+}

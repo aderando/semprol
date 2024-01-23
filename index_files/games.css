@@ -1,0 +1,238 @@
+:root {
+    --discount: #417487;
+    --full: #352d12;
+    --bb: #2d5e2d;
+    --prize123: #b76217;
+    --wild: #ec4c4c;
+  }
+
+input[type=number], input[type=tel], input[type=text], textarea, .numberDot {
+    border-radius: 5px;
+    font-size: 14px !important;
+    padding: 2px 5px !important;
+    margin: 0;
+    height: 30px;
+    width: 100% !important;
+}
+.autobet {
+    width: 100%;
+    text-align: center;
+}
+.table th, .table td {
+    padding: 10px 2px;
+    vertical-align: middle !important;
+}
+.padding-5 {
+    padding: 5px !important;
+}
+.padding-r-5 {
+  padding-right: 5px !important;
+}
+.backshow {
+    background-color: #417487 !important;
+}
+.menu50 {
+    background-color: #417487 !important;
+}
+.border-full {
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.menu {
+    display: flex;
+    font-size: 11px;
+    font-size: 14px;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu th {
+  width: 100%;
+  text-align:center;
+}
+.menudisc {
+    cursor: default;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent !important;
+    position: relative;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #417487;
+    color: #fff !important;
+    width: 100%;
+    font-size: 12px;
+}
+.full {
+    background-color: #352d12;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top: 1px solid #ddd;
+    width: 100%;
+    border-bottom-color: transparent !important;
+    font-size: 12px;
+}
+.menubb {
+    cursor: default;
+    border: 1px solid #ddd;
+    position: relative;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #2d5e2d;
+    width: 100%;
+    border-bottom-color: transparent !important;
+    font-size: 12px;
+}
+.menusdisc {
+    cursor: default;
+    border: 1px solid #ddd;
+    border-bottom-color: #fff;
+    position: relative;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #b76217;
+    width: 100%;
+    border-bottom-color: transparent !important;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.games-tab{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  flex-grow: 1;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+.discount-tab, .discount-content{
+  background-color: var(--discount) !important;
+}
+.full-tab, .full-content{
+  background-color: var(--full) !important;
+  
+}
+.prize123-tab, .prize123-content{
+  background-color: var(--prize123) !important;
+  
+}
+.wild-tab , .wild-content{
+  background-color: var(--wild) !important;
+ 
+}
+.bb-tab, .bb-content{      
+  background-color: var(--bb) !important;
+}
+.active-tab{
+    color: orange;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent
+}
+thead[class*="-content"] th{
+  border-top: none;
+}
+.border-outline {
+  border-bottom: 1px solid #dee2e6;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+table th {
+  border-top: 1px solid #dee2e6;
+  border-bottom: none;
+  padding: 10px 2px;
+}
+table tr td {
+  padding: 10px 2px;
+  border: none;
+  border-top: 1px solid #dee2e6;
+}
+table tr td:first-child {
+  padding-left: 5px;
+  border-top: 1px solid #dee2e6;
+  border-bottom: 0px solid #dee2e6;
+  border-left: 0px solid #dee2e6;
+}
+table tr td:last-child {
+  padding-right: 5px;
+}
+.for4d {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.select-number {
+  padding: 3px 10px;
+  border-radius: 5px;
+  outline: none;
+}
+.right {
+  float: none;
+}
+.bets {
+  margin-bottom: 0px;
+}
+.formLabels {
+  padding: 0px;
+}
+.border-top {
+  border-top: 1px solid #dee2e6;
+}
+.border-top-n {
+  border: none !important;
+}
+.padding-x {
+  padding: 0px 5px;
+}
+.padding-top-n {
+  padding-top: 0px !important;
+}
+.padding-x-y {
+  padding: 10px;
+}
+.margin-10-top {
+  margin-top: 10px;
+}
+.radio-button-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 10px;
+}
+.cc {
+  background-color: #417487;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.rounded-sm {
+  border-radius: 5px !important;
+}
+.bet-flex{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 6px;
+}
+.bet-flex-3{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 6px;
+}
+.checkbox-flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.contactOption {
+  background-image: none !important;
+}
+select.contactField {
+  height: 30px;
+}
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}

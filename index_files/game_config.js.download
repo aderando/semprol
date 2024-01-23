@@ -1,0 +1,132 @@
+var statusScroll = 0;
+
+function Scrolldown() {
+	$("html, body").animate(
+		{
+			scrollTop:
+				statusScroll == 0
+					? $(".pagecontent").offset().top - 60
+					: $(window).height(),
+		},
+		1500
+	);
+}
+
+function ScrolldToSummary() {
+	$("html, body").animate(
+		{
+			scrollTop: $(".summary-result").offset().top - 60,
+		},
+		1500
+	);
+}
+
+function Scrolltop() {
+	$("html, body").animate(
+		{
+			scrollTop: statusScroll == 0 ? 0 : $(".scroll-div").offset().top - 70,
+		},
+		1500
+	);
+}
+
+window.onload = Scrolldown;
+
+$(".scrollup").click(function () {
+	Scrolltop();
+});
+
+$(".scrolldown").click(function () {
+	Scrolldown();
+});
+
+$(window).scroll(function (event) {
+	var scroll = $(window).scrollTop();
+	var maxScroll = $(".panel-blue").height();
+	if (statusScroll == 0) {
+		$(".scrolldown").hide();
+		if (scroll == 0) {
+			$(".scrollup").fadeOut();
+		} else {
+			$(".scrollup").fadeIn();
+		}
+	} else {
+		if (scroll >= maxScroll) {
+			$(".scrollup").fadeIn();
+			$(".scrolldown").fadeOut();
+		} else {
+			$(".scrollup").fadeOut();
+			$(".scrolldown").fadeIn();
+		}
+	}
+});
+
+$(".btn-games-wrapper").click(function () {
+	let target = $(this).children();
+	let loader = target.find(".loader");
+	let text = target.find(".confirm-text");
+	let link = target.attr("data-link");
+
+	loader.css({ display: "inline-block" });
+	text.css({ display: "none" });
+
+	$(".pagecontent")
+		.slideUp("slow")
+		.load(link, function () {
+			$(".pagecontent").slideDown("slow");
+			loader.css({ display: "none" });
+			text.css({ display: "block" });
+			Scrolldown();
+		});
+});
+
+function backbutton(link) {
+	$("#preloader").css({ display: "block" });
+	$(".fullcontent").show();
+	$(".historycontent").html("");
+	$(".pagecontent")
+		.hide()
+		.load(link, function () {
+			$(".pagecontent").show();
+			$("#preloader").css({ display: "none" });
+			Scrolldown();
+		});
+}
+
+function sendbet_mobile(data, game, pasar) {
+	var url_send = $("#route_send_mobile").val();
+	$(".fullcontent").hide();
+	$(".historycontent").load(
+		url_send,
+		{
+			data: data,
+			game: game,
+			pasar: pasar,
+		},
+		function () {
+			refresh_balance();
+			$("html, body").animate(
+				{
+					scrollTop: 0,
+				},
+				1500
+			);
+		}
+	);
+}
+
+function refresh_balance() {
+	let route = $("#route_refresh_mobile").val();
+	$.ajax({
+		url: route,
+		method: "GET",
+		success: function (data) {
+			$("#bal-text").html(data);
+		},
+	});
+}
+
+function is_lite() {
+	const liteMode = $("#is_lite").val();
+	return liteMode == 1 ? true : false;
+}

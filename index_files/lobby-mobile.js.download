@@ -1,0 +1,37 @@
+$(function () {
+
+    // $('.side-link').click(function(e) {
+    //     if ($(this).attr('href').search('/new-home') > 0) {
+    //         return
+    //     }
+
+    //     e.preventDefault();
+
+    //     document.getElementById("mySidenav").style.width = "0";
+    //     $('.side-link-container').removeClass('show')
+    //     $('body').removeClass('noscroll')
+
+    //     $('.overlay-sidebar').fadeOut()
+    // })
+
+    $('.side-link-lodaer').click(function (e) {
+        // if ($(this).attr('href').search('/new-home') > 0) {
+        //     return
+        // }
+
+        // e.preventDefault();
+        
+        $("#preloader").css({
+            'display': 'block'
+        });
+
+        // $('#content-main').hide().load($(this).attr('href'), function () {
+        //     $('#content-main').show();
+            
+        //     $("#preloader").css({
+        //         'display': 'none'
+        //     });
+        // })
+    })
+
+})

@@ -1,0 +1,823 @@
+var data = document.getElementById("data_js").value;
+data = data.split('-');
+
+var flag = 0;
+_dom = 0;
+_dom=document.all?3:(document.getElementById?1:(document.layers?2:0));
+function filterChar(a,b){
+    if (_dom == 3 || (_dom == 1 && navigator.userAgent.indexOf("Opera/")==0))   {
+        if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode==8 || event.keyCode==9  || event.keyCode >= 37 && event.keyCode <= 40 ) {
+            event.returnValue=true;
+        }else{
+            event.returnValue = false;
+        }
+    }else{
+        if ((b.charCode > 45 && b.charCode < 58)  || b.charCode == 0) {
+        } else {
+            b.preventDefault();
+            b.returnValue = false;
+        }
+    }
+}
+
+function number_format(number){
+    var decPoint = ",";
+    var thousandsSep = ".";
+    var check = number;
+    var checkkoma = String(check).indexOf(".");
+    if(checkkoma == -1){
+        var decimals = 0;
+    }else{ var decimals = 2; }
+    decimals = decimals || 0;
+    number = parseFloat(number);
+
+    if(!decPoint || !thousandsSep){
+        decPoint = '.';
+        thousandsSep = ',';
+    }
+
+    var roundedNumber = Math.round( Math.abs( number ) * ('1e' + decimals) ) + '';
+    var numbersString = decimals ? roundedNumber.slice(0, decimals * -1) : roundedNumber;
+    var decimalsString = decimals ? roundedNumber.slice(decimals * -1) : '';
+    var formattedNumber = "";
+
+    while(numbersString.length > 3){
+        formattedNumber = thousandsSep + numbersString.slice(-3) + formattedNumber;
+        numbersString = numbersString.slice(0,-3);
+    }
+
+    return (number < 0 ? '-' : '') + numbersString + formattedNumber + (decimalsString ? (decPoint + decimalsString) : '');
+}
+function removecomma(a) {
+    var res = '';
+    for (i=0;i<a.length;i++) {
+        if (a.substr(i,1) == "."){
+        }else{
+            res += a.substr(i,1)
+        }
+    }
+    return res;
+}
+function Comma(number) {
+    number = '' + number;
+    if (number.length > 3) {
+        var mod = number.length % 3;
+        var output = (mod > 0 ? (number.substring(0,mod)) : '');
+        for (i=0 ; i < Math.floor(number.length / 3); i++) {
+            if ((mod == 0) && (i == 0)){
+                output += number.substring(mod+ 3 * i, mod + 3 * i + 3);
+            }else{
+                output += '.' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+            }
+        }
+        return (output);
+    }else{
+        return number;
+    }
+}
+function clearall() {
+    var ct = document.getElementById('totalrow').value;
+    for(var a=11; a<=Number(ct)+10; a++) {
+        document.getElementById('contentquick4d').classList.add("hidden");
+        document.getElementById('check'+a).value = 0;
+        document.getElementById('check'+a).checked = false;
+        document.getElementById('allbet'+a).value = "";
+        document.getElementById('tr'+a).value = "";
+        document.getElementById('content4dset'+a).innerHTML = "";
+        var input4d = document.getElementById("r"+a+"4d");
+        var input3d = document.getElementById("r"+a+"3d");
+        var input2d = document.getElementById("r"+a+"2d");
+        var inputn  = document.getElementById("r"+a+"n");
+        var nomor3d = document.getElementById("nomor3d"+a);
+        var nomor2d = document.getElementById("nomor2d"+a);
+        var disc4d = document.getElementById("diskon4d"+a);
+        var disc3d = document.getElementById("diskon3d"+a);
+        var disc2d = document.getElementById("diskon2d"+a);
+        input2d.placeholder= '2D Blkg';
+        input4d.placeholder= '4D';
+        input3d.placeholder= '3D';
+        input4d.disabled = true;input3d.disabled = true;input2d.disabled = true;
+        input4d.value="";input3d.value="";input2d.value="";inputn.value="";nomor3d.value="";nomor2d.value="";
+        disc4d.value="";disc3d.value="";disc2d.value=""; check.value = 1;
+    }
+    totalallbet();
+}
+function confirmz(x) {
+    x.value=removecomma(x.value);
+    return true;
+}
+function totalallbet() {
+    var row = document.getElementById('totalrow').value;
+    var totalduit = 0;
+    for(var a=11; a<=parseInt(row) + 10; a++) {
+        var number = document.getElementById("r"+a+"n").value;
+        if(number.length>1){
+            var num = Number(document.getElementById("bayar"+a).value);
+            if(num!="" || num != 0)totalduit += num;
+        }
+    }
+    var pulus = document.getElementById('duitku').value;
+    let result = balanceProtect(pulus,totalduit)
+    if(!result) {
+        $('#contentquick4d').addClass('hidden')
+        return;
+    }
+    document.getElementById("cekerrorbalance").value = "0";
+    document.getElementById('totalbet').innerHTML = number_format(totalduit);
+}
+function addbaris(rowvalue) {
+    $('#myTable').html('');
+    var n = 1;
+    var nm = 11;
+    var tb = 0;
+    var row = "";
+    var row2 = "";
+    var xRow = rowvalue;
+    for (var i = 0; i<xRow; i++) {
+        tb = nm++;
+        row = '<tr>\
+            <td class="text-center">'+n+++'</td>\
+            <td class="text-center"><input align="center" style="width: 100%; min-width: 50px;" step="any" type="number" inputmode="numeric" maxlength="9999" pattern="[0-9]*" name=r'+tb+'n id=r'+tb+'n Onkeyup="return protect(event,'+tb+')" onSubmit="confirmz(this.r'+tb+'n);"></td>\
+            <td class="text-center"><input align="center" style="width: 100%; min-width: 50px;" type="number" inputmode="numeric" pattern="[0-9]+([\\.,][0-9]+)?" step=any name=r'+tb+'4d id=r'+tb+'4d onchange="return IsNumeric(\'4d\',\''+tb+'\');" maxlength=1 placeholder="4D" disabled></td>\
+            <td class="text-center"><input align="center" style="width: 100%; min-width: 50px;" type="number" inputmode="numeric" pattern="[0-9]+([\\.,][0-9]+)?" step=any name=r'+tb+'3d id=r'+tb+'3d onchange="return IsNumeric(\'3d\',\''+tb+'\');" maxlength=1 placeholder="3D" disabled></td>\
+            <td class="text-center"><input align="center" style="width: 100%; min-width: 50px;" type="number" inputmode="numeric" pattern="[0-9]+([\\.,][0-9]+)?" step=any name=r'+tb+'2d id=r'+tb+'2d onchange="return IsNumeric(\'2d\',\''+tb+'\');" maxlength=1 placeholder="2D Blkg" disabled></td>\
+            <td class="text-center"><input type=checkbox name="check'+tb+'" value="0" class=centang onclick="checkbb('+tb+',this.value);" six="1" id="check'+tb+'"></td>\
+            <input type=hidden value="" name="nomor3d'+tb+'" id="nomor3d'+tb+'">\
+            <input type=hidden value="" name="nomor2d'+tb+'" id="nomor2d'+tb+'">\
+            <input type=hidden value="" name="diskon4d'+tb+'" id="diskon4d'+tb+'">\
+            <input type=hidden value="" name="diskon3d'+tb+'" id="diskon3d'+tb+'">\
+            <input type=hidden value="" name="diskon2d'+tb+'" id="diskon2d'+tb+'">\
+            <input type=hidden value="" name=tr'+tb+' id="tr'+tb+'">\
+            <input type=hidden value="" name="allbet'+tb+'" id="allbet'+tb+'">\
+        </tr>';
+        row = $(row);
+        $('#myTable').append(row);
+
+        row2 += '<span id="content4dset'+tb+'"></span>';
+    }
+    $('#content4d').html(row2);
+    document.getElementById('totalrow').value = xRow;
+}
+function protect(e,a){
+    var input4d = document.getElementById("r"+a+"4d");
+    var input3d = document.getElementById("r"+a+"3d");
+    var input2d = document.getElementById("r"+a+"2d");
+    var nomor3d = document.getElementById("nomor3d"+a);
+    var nomor2d = document.getElementById("nomor2d"+a);
+    var inputn = document.getElementById("r"+a+"n").value;
+    // Protect Maximal input
+    if(inputn.length == 1){
+        input2d.disabled   = true;
+        input2d.placeholder= '2D Blkg';
+        input4d.disabled   = true;
+        input4d.placeholder= '4D';
+        input3d.disabled   = true;
+        input3d.placeholder= '3D';
+        input4d.value = "";
+        input3d.value = "";
+    }else if(inputn.length == 2){
+        input2d.disabled = false;
+        input2d.placeholder='';
+        input4d.disabled   = true;
+        input4d.placeholder= '4D';
+        input3d.disabled   = true;
+        input3d.placeholder= '3D';
+        input4d.value = "";
+        input3d.value = "";
+        nomor3d.value = "";
+        nomor2d.value = inputn;
+        /*
+         * set auto bet value
+         */
+         var autobet = $('#autobet2D').val();
+         if (autobet != "") {
+           input2d.value = autobet;
+         }
+
+        shuffle(a);
+    }else if(inputn.length == 3){
+        input3d.disabled = false;
+        input3d.placeholder='';
+        input4d.disabled   = true;
+        input4d.placeholder= '4D';
+        input4d.value = "";
+        nomor2d.value = inputn.substr(1, 2);
+        nomor3d.value = inputn;
+
+        var autobet = $('#autobet3D').val();
+        if (autobet != "") {
+          input3d.value = autobet;
+        }
+        shuffle(a);
+    }else if(inputn.length == 4){
+        input4d.disabled = false;
+        input4d.placeholder='';
+        nomor2d.value = inputn.substr(2, 3);
+        nomor3d.value = inputn.substr(1, 3);
+        input4d.focus();
+
+        var autobet = $('#autobet4D').val();
+        if (autobet != "") {
+          input4d.value = autobet;
+        }
+        // document.getElementById("r"+(parseInt(a)+1)+"n").focus();
+        shuffle(a);
+    }else if(inputn.length > 4){
+        document.getElementById("r"+a+"n").value = inputn.substr(0, 4);
+        input4d.focus();
+        shuffle(a);
+        return false;
+    }
+}
+function IsNumeric(posisi,a){
+
+    if(posisi == "2d"){
+        var bet = document.getElementById("nomor2d"+a).value;
+        var type = document.getElementById("typex").value;
+        var disc =  data[2];
+        if (type=='D') {
+          var max = Number( data[5]);
+        }else {
+          var max = Number( data[8]);
+        }
+        var lipat = data[26];
+        var min = Number( data[11]);
+        var bayarx = Math.floor(document.getElementById('z4dmax').value);;
+        var discx = document.getElementById("diskon4d"+a);
+        var input = Number(document.getElementById("r"+a+"2d").value*1000);
+    }
+    if(posisi == "3d"){
+        var bet = document.getElementById("nomor3d"+a).value;
+        var type = document.getElementById("typex").value;
+        var disc =  data[1];
+        if (type=='D') {
+          var max = Number( data[4]);
+        }else {
+          var max = Number( data[7]);
+        }
+        var lipat = data[25];
+        var min = Number( data[10]);
+        var bayarx = Math.floor(document.getElementById('z3dmax').value);
+        var discx = document.getElementById("diskon3d"+a);
+        var input = Number(document.getElementById("r"+a+"3d").value*1000);
+    }
+    if(posisi == "4d"){
+        var bet = document.getElementById("r"+a+"n").value;
+        var type = document.getElementById("typex").value;
+        var disc =  data[0];
+        if (type=='D') {
+          var max = Number( data[3]);
+        }else {
+          var max = Number( data[6]);
+        }
+        var lipat = data[24];
+        var min = Number( data[9]);
+        var bayarx = Math.floor(document.getElementById('z2dmax').value);
+        var discx = document.getElementById("diskon2d"+a);
+        var input = Number(document.getElementById("r"+a+"4d").value*1000);
+    }
+    if(bet != "" || bet != 0){
+        if(input < min && input!=""){
+            document.getElementById("cekerror").value = 1;
+            alert("Nilai Bet "+posisi+" Minimal "+Comma(min));
+            document.getElementById("r"+a+posisi).value=""
+            input=''; document.getElementById("r"+a+posisi).focus();
+            return false;
+        }
+        if(input > max && input!=""){
+            document.getElementById("cekerror").value = 1;
+            alert("Nilai Bet "+posisi+" Maximal "+Comma(max));
+            document.getElementById("r"+a+posisi).value="";
+            input=''; document.getElementById("r"+a+posisi).focus();
+            return false;
+        }
+        if(input % lipat !=0){
+            document.getElementById("cekerror").value = 1;
+            alert("Nilai Bet "+posisi+" Harus Kelipatan "+lipat);
+            document.getElementById("r"+a+posisi).value=""
+            input=''; document.getElementById("r"+a+posisi).focus();
+            return false;
+        }
+        // if (input==0){
+        //   alert("Nilai Bet "+posisi+" tidak boleh 0");
+        // }
+        discx.value   = Math.round(Number(input*(disc/100)));
+        bayarx.value  = Number(input-(discx.value));
+    }
+    shuffle(a);
+}
+function validate(fom) {
+    // cekmaxsolo();
+    var cek = document.getElementById('cekerror').value;
+    var cekbalance = document.getElementById('cekerrorbalance').value;
+    if (cek == 0 && cekbalance == 0) {
+        var yes = confirm("Proses...?");
+        if (yes) {
+            if(flag == 1){
+                alert('Bet anda masih diproses.');
+                return false;
+            }
+            flag = 1;
+            totalduit =  Number(removecomma(document.getElementById('totalbet').innerHTML));
+            var row = document.getElementById('totalrow').value;
+            var pulus = document.getElementById('duitku').value;
+            if (parseInt(totalduit) > parseInt(pulus)) {
+                for(var a=11; a<=10+parseInt(row); a++) {
+                    document.getElementById('r'+a+'5').value = '';
+                }
+                document.getElementById('totalbet').innerHTML = '0';
+                alert("Total Order Rp. " +number_format(totalduit)+" \n Maaf...Dana Anda Tidak Mencukupi.");
+                return false;
+            }
+        }else {
+            return false;
+        }
+    }else{
+        if (cek==1) {
+            alert("Bet melebihi max solo, Cek Bettingan Anda");
+            return false;
+        }
+        if (cekbalance==1) {
+            alert("Balance tidak cukup, Cek Bettingan Anda");
+            return false;
+        }
+
+    }
+}
+var permArr = [],
+usedChars = [];
+function permute(input) {
+    var i, ch;
+    for (i = 0; i < input.length; i++) {
+        ch = input.splice(i, 1)[0];
+        usedChars.push(ch);
+        if (input.length == 0) {
+            permArr.push(usedChars.slice());
+        }
+        permute(input);
+        input.splice(i, 0, ch);
+        usedChars.pop();
+    }
+    return permArr
+};
+function sort_unique(arr) {
+    arr = arr.sort(function (a, b) { return b*1 - a*1; });
+    var ret = [];
+    var flex = 0;
+    for(var i=0; i<arr.length;i++){
+        flex = 0;
+        for(var a=(i+1);a<=arr.length;a++){
+            if(arr[i] == arr[a]){
+                flex = 1;
+                break;
+            }
+        }
+        if(flex == 0){
+            ret.push(arr[i]);
+        }
+    }
+    return ret;
+}
+function shuffle(no){
+    document.getElementById('allbet'+no).value = "";
+    document.getElementById('tr'+no).value = "";
+    document.getElementById('content4dset'+no).innerHTML = "";
+    var ganti = document.getElementById('ganti').value;
+    var checkedValue = document.getElementById('check'+no).value;
+    var table = document.getElementById('content4dset'+no);
+    var number = document.getElementById("r"+no+"n").value;
+    var a = number.substr(0,1);
+    var b = number.substr(1,1);
+    var beli4d = document.getElementById('r'+no+'4d').value;
+    var beli3d = document.getElementById('r'+no+'3d').value;
+    var beli2d = document.getElementById('r'+no+'2d').value;
+    var betting4d = Number(beli4d*1000);
+    var betting3d = Number(beli3d*1000);
+    var betting2d = Number(beli2d*1000);
+
+    var disc4d = document.getElementById('unit4d').value;
+    if (ganti=="D") {
+      var diskon4d = betting4d*disc4d/100;
+    }else {
+      var diskon4d = 0;
+    }
+    var bayar4d = betting4d-diskon4d;
+
+    var disc3d = document.getElementById('unit3d').value;
+    if (ganti=="D") {
+      var diskon3d = betting3d*disc3d/100;
+    }else {
+      var diskon3d = 0;
+    }
+    var bayar3d = betting3d-diskon3d;
+
+    var disc2d = document.getElementById('unit2d').value;
+    if (ganti=="D") {
+      var diskon2d = betting2d*disc2d/100;
+    }else {
+      var diskon2d = 0;
+    }
+    var bayar2d = betting2d-diskon2d;
+    var n = 0; var isi = "";
+
+    //if BB CAMPURAN
+    if(checkedValue == 1){
+        var result = "";
+        permArr = [];
+        if(number.length==2){
+            result = permute([a,b]);
+        }else if(number.length==3){
+            var c = number.substr(2,1);
+            result = permute([a,b,c]);permute([a,b]);permute([a,c]);permute([b,c]);
+        }else if(number.length==4){
+            var c = number.substr(2,1);
+            var d = number.substr(3,1);
+            result = permute([a,b,c,d]);permute([a,b,c]);permute([a,b,d]);permute([a,c,d]);permute([b,c,d]);permute([a,b]);permute([a,c]);permute([a,d]);permute([b,c]);permute([b,d]);permute([c,d]);
+        }else if(number.length==5){
+            var c = number.substr(2,1);
+            var d = number.substr(3,1);
+            var e = number.substr(4,1);
+            result = permute([a,b,c,d]);permute([a,b,c,e]);permute([a,b,d,e]);permute([a,c,d,e]);permute([b,c,d,e]);permute([a,b,c]);permute([a,b,d]);permute([a,b,e]);permute([a,c,d]);permute([a,c,e]);permute([a,d,e]);permute([b,c,d]);permute([b,c,e]);permute([b,d,e]);permute([c,d,e]);permute([a,b]);permute([a,c]);permute([a,d]);permute([a,e]);permute([b,c]);permute([b,d]);permute([b,e]);permute([c,d]);permute([c,e]);permute([d,e]);
+        }else if(number.length==6){
+            var c = number.substr(2,1);
+            var d = number.substr(3,1);
+            var e = number.substr(4,1);
+            var f = number.substr(5,1);
+            result = permute([a,b,e,f]);permute([a,e,c,f]);permute([a,e,d,f]);permute([b,e,c,f]);permute([b,e,d,f]);permute([e,c,d,f]); permute([a,b,c,f]);permute([a,c,d,f]);permute([a,b,d,f]);permute([b,c,d,f]);  permute([a,b,c,d]);permute([a,b,c,e]);permute([a,b,d,e]);permute([a,c,d,e]);permute([b,c,d,e]); permute([a,b,f]);permute([a,c,f]);permute([a,d,f]);permute([a,e,f]);permute([b,c,f]);permute([f,b,d]);permute([f,b,e]);permute([c,d,f]);permute([c,e,f]);permute([d,e,f]); permute([a,b,c]);permute([a,b,d]);permute([a,b,e]);permute([a,c,d]);permute([a,c,e]);permute([a,d,e]);permute([b,c,d]);permute([b,c,e]);permute([b,d,e]);permute([c,d,e]); permute([a,b]);permute([a,c]);permute([a,d]);permute([a,e]);permute([b,c]);permute([b,d]);permute([b,e]);permute([c,d]);permute([c,e]);permute([d,e]); permute([a,f]);permute([b,f]);permute([c,f]);permute([d,f]);permute([e,f]);
+        }else if(number.length==7){
+            var c = number.substr(2,1);
+            var d = number.substr(3,1);
+            var e = number.substr(4,1);
+            var f = number.substr(5,1);
+            var g = number.substr(6,1);
+            result = permute([a,b,c,g]);permute([a,b,d,g]);permute([a,b,e,g]);permute([a,b,f,g]);permute([a,d,c,g]);permute([a,e,c,g]);permute([a,f,c,g]); permute([a,e,d,g]);permute([a,f,d,g]);permute([a,f,e,g]);permute([d,b,c,g]);permute([e,b,c,g]);permute([f,b,c,g]);permute([e,b,d,g]);permute([f,b,d,g]);permute([f,b,e,g]);permute([e,d,c,g]);permute([f,d,c,g]);permute([f,c,e,g]);permute([f,d,e,g]);    permute([a,b,e,f]);permute([a,e,c,f]);permute([a,e,d,f]);permute([b,e,c,f]);permute([b,e,d,f]);permute([e,c,d,f]); permute([a,b,c,f]);permute([a,c,d,f]);permute([a,b,d,f]);permute([b,c,d,f]);  permute([a,b,c,d]);permute([a,b,c,e]);permute([a,b,d,e]);permute([a,c,d,e]);permute([b,c,d,e]);    permute([a,b,g]);permute([a,c,g]);permute([a,d,g]);permute([a,e,g]);permute([a,f,g]);permute([b,c,g]);permute([b,d,g]);permute([b,e,g]);permute([b,f,g]);permute([c,d,g]);permute([c,e,g]);permute([c,f,g]);permute([d,e,g]);permute([d,f,g]);permute([e,f,g]);   permute([a,b,f]);permute([a,c,f]);permute([a,d,f]);permute([a,e,f]);permute([b,c,f]);permute([f,b,d]);permute([f,b,e]);permute([c,d,f]);permute([c,e,f]);permute([d,e,f]); permute([a,b,c]);permute([a,b,d]);permute([a,b,e]);permute([a,c,d]);permute([a,c,e]);permute([a,d,e]);permute([b,c,d]);permute([b,c,e]);permute([b,d,e]);permute([c,d,e]); permute([a,b]);permute([a,c]);permute([a,d]);permute([a,e]);permute([b,c]);permute([b,d]);permute([b,e]);permute([c,d]);permute([c,e]);permute([d,e]); permute([a,f]);permute([b,f]);permute([c,f]);permute([d,f]);permute([e,f]); permute([a,g]);permute([b,g]);permute([c,g]);permute([d,g]);permute([e,g]);permute([f,g]);
+        }
+
+        var v4d = "";var jmlh4d =0;
+        var v3d = "";var jmlh3d =0;
+        var v2d = "";var jmlh2d =0;
+        var temp = ""; var wee = 0;
+        var getresult = "";var check = "";
+        var num4d = 0;var num3d = 0;
+        var num2d = 0; var num = 0;
+        var arr = []; var jmlh =0;
+        for(var x=0;x<result.length;x++){
+            arr[x] = String(result[x]).replace(/,/g, "");
+        }
+        var pxx = sort_unique(arr);
+        document.getElementById('allbet'+no).value=pxx;
+        for(var x=0;x<pxx.length;x++){
+            wee++;
+            n=wee+10;
+            temp = pxx[x];
+            if(temp.length==4){
+                v4d += '<span id="tebak'+n+'">'+temp+'</span><span id="xxx'+n+'"> : </span>';
+                jmlh4d++;
+                num4d += Number(bayar4d);
+            }else if(temp.length==3){
+                v3d += '<span id="tebak'+n+'">'+temp+'</span><span id="xxx'+n+'"> : </span>';
+                jmlh3d++;
+                num3d += Number(bayar3d);
+            }else if(temp.length==2){
+                v2d += '<span id="tebak'+n+'">'+temp+'</span><span id="xxx'+n+'"> : </span>';
+                jmlh2d++;
+                num2d += Number(bayar2d);
+            }
+        }
+        document.getElementById('tr'+no).value=wee;
+        n = Number(no - 10);
+        num = num4d + num3d + num2d;
+        jmlh = jmlh4d + jmlh3d + jmlh2d;
+    }else{
+        document.getElementById('tr'+no).value=wee;
+        var allbet = "";
+        if(number.length==2){
+            jmlh4d = 0; v4d = ""; bayar4d = 0; jmlh4d = 0; num4d = 0;
+            jmlh3d = 0; v3d = ""; bayar3d = 0; jmlh3d = 0; num3d = 0;
+            jmlh2d = 1; v2d = a+b; num2d = Number(jmlh2d*bayar2d);
+            allbet = v2d;
+        }else if(number.length==3){
+            var c = number.substr(2,1);
+            jmlh4d = 0; v4d = ""; bayar4d = 0; jmlh4d = 0; num4d = 0;
+            jmlh3d = 1; v3d = a+b+c; num3d = Number(jmlh3d*bayar3d);
+            jmlh2d = 1; v2d = b+c; num2d = Number(jmlh2d*bayar2d);
+            allbet = v3d + "," +v2d;
+        }else if(number.length==4){
+            var c = number.substr(2,1);
+            var d = number.substr(3,1);
+            jmlh4d = 1; v4d = a+b+c+d; num4d = Number(jmlh4d*bayar4d);
+            jmlh3d = 1; v3d = b+c+d; num3d = Number(jmlh3d*bayar3d);
+            jmlh2d = 1; v2d = c+d; num2d = Number(jmlh2d*bayar2d);
+            allbet = v4d + "," +v3d + "," +v2d;
+        }
+        n = Number(no - 10);
+        num = num4d + num3d + num2d;
+        jmlh = jmlh4d + jmlh3d + jmlh2d;
+        document.getElementById('allbet'+no).value = allbet;
+        document.getElementById('tr'+no).value = jmlh;
+    }
+
+    if(num4d != 0){
+        isi = '<tr class="text-center"> <td style="width: 30px;"> '+jmlh4d+' </td> <td>'+v4d+'</td> <td> '+number_format(bayar4d)+' X '+jmlh4d+' = <FONT COLOR=#2ed4ea>'+number_format(num4d)+'</font></td> </tr>';
+    }
+    if(num3d != 0){
+        isi += '<tr class="text-center"> <td style="width: 30px;"> '+jmlh3d+' </td> <td>'+v3d+'</td> <td> '+number_format(bayar3d)+' X '+jmlh3d+' = <FONT COLOR=#2ed4ea>'+number_format(num3d)+'</font></td> </tr>';
+    }
+    if(num2d != 0){
+        isi += '<tr class="text-center"> <td style="width: 30px;"> '+jmlh2d+' </td> <td>'+v2d+'</td> <td> '+number_format(bayar2d)+' X '+jmlh2d+' = <FONT COLOR=#2ed4ea>'+number_format(num2d)+'</font></td> </tr>';
+    }
+    table.innerHTML = '<br>\
+                        <h3>'+n+'. Nomor '+number+'</h3>\
+                        <table class="table table-custom table-sortable">\
+                            <thead>\
+                                <tr align="center" bgcolor="#8C5B00">\
+                                    <td align="center" style="padding: 5px;"><font color="#FFFFFF"><b>Jlh</b></font></td>\
+                                    <td align="center" style="padding: 5px;"><font color="#FFFFFF"><b>Tebak</b></font></td>\
+                                    <td align="center" style="padding: 5px;"><font color="#FFFFFF"><b>Bet</b></font></td>\
+                                </tr>\
+                            </thead>\
+                            <tbody>\
+                                '+isi+'\
+                                <tr class="text-center" bgcolor="#0e313a"><td>'+jmlh+'</td><td>Total</td> <td><FONT COLOR=#2ed4ea>'+number_format(num)+'</font><input type="hidden" id="bayar'+no+'" value="'+num+'"> </td> </tr>\
+                            </tbody>\
+                        </table>';
+    totalallbet();
+
+
+    return getresult;
+}
+
+function createfield(x){
+    var number = document.getElementById(x).value;
+    var elementExists4d =0;var elementExists3d =0;var elementExists2d =0;
+    if (number.length==4) {
+        number4d = number;
+        number3d = number.substring(1);
+        number2d = number.substring(2);
+    }else if(number.length==3){
+        number4d = "";
+        number3d = number;
+        number2d = number.substring(1);
+    }else if(number.length==2){
+        number4d = "";
+        number3d = "";
+        number2d = number;
+    }
+    var elementExists4d = document.getElementById(number4d+"4d");
+    var elementExists3d = document.getElementById(number3d+"3d");
+    var elementExists2d = document.getElementById(number2d+"2d");
+    if (elementExists4d===null) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("id", number4d+"4d");
+        input.setAttribute("value", 0);
+        document.getElementById("sementara").appendChild(input);
+    }
+    if (elementExists3d===null) {
+        var input2 = document.createElement("input");
+        input2.setAttribute("type", "hidden");
+        input2.setAttribute("id", number3d+"3d");
+        input2.setAttribute("value", 0);
+        document.getElementById("sementara").appendChild(input2);
+    }
+    if (elementExists2d===null) {
+        var input3 = document.createElement("input");
+        input3.setAttribute("type", "hidden");
+        input3.setAttribute("id", number2d+"2d");
+        input3.setAttribute("value", 0);
+        document.getElementById("sementara").appendChild(input3);
+    }
+}
+
+function ceksolo(){
+    var ok = document.getElementById("cekerror").value;
+    var ct = document.getElementById('totalrow').value;
+    var ganti = document.getElementById('ganti').value;
+    var table = document.getElementById('content4dset'+no);
+    var type = document.getElementById('typex').value;
+    if (type=="D") {
+        var max4d = Number( data[12]);
+        var max3d = Number( data[13]);
+        var max2d = Number( data[14]);
+    }else{
+        var max4d = Number( data[15]);
+        var max3d = Number( data[16]);
+        var max2d = Number( data[17]);
+    }
+
+    var totbet4d = 0;var totbet3d = 0;var totbet2d = 0;
+    var ambil4d = 0;var ambil3d = 0;var ambil2d = 0;
+    for(var no=11; no<=Number(ct)+10; no++) {
+        var number = document.getElementById("r"+no+"n").value;
+        if (number.length==4) {
+            number4d = number;
+            number3d = number.substring(1);
+            number2d = number.substring(2);
+        }else if(number.length==3){
+            number4d = "";
+            number3d = number;
+            number2d = number.substring(1);
+        }else if(number.length==2){
+            number4d = "";
+            number3d = "";
+            number2d = number;
+        }
+        var beli4d = document.getElementById('r'+no+'4d').value;
+        var beli3d = document.getElementById('r'+no+'3d').value;
+        var beli2d = document.getElementById('r'+no+'2d').value;
+        var betting4d = Number(beli4d*1000);
+        var betting3d = Number(beli3d*1000);
+        var betting2d = Number(beli2d*1000);
+
+        var elementExists4d = document.getElementById(number4d+"4d");
+        var elementExists3d = document.getElementById(number3d+"3d");
+        var elementExists2d = document.getElementById(number2d+"2d");
+
+        if (((number4d!=0 && number4d!="")|| number4d=="0000") && betting4d!=0) {
+            if (elementExists4d === null) {
+                document.getElementById(number4d+"4d").value = Number(betting4d);
+            }else{
+                document.getElementById(number4d+"4d").value = Number(document.getElementById(number4d+"4d").value) + Number(betting4d);
+            }
+            // totbet4d += Number(betting4d);
+        }
+        if (((number3d!=0 && number3d!="")|| number3d=="000")  && betting3d!=0) {
+            if (elementExists3d === null) {
+                document.getElementById(number3d+"3d").value = Number(betting3d);
+            }else{
+                document.getElementById(number3d+"3d").value = Number(document.getElementById(number3d+"3d").value) + Number(betting3d);
+            }
+            // totbet4d += Number(betting4d);
+        }
+        if (((number2d!=0 && number2d!="") || number2d=="00") && betting2d!=0) {
+            if (elementExists2d === null) {
+                document.getElementById(number2d+"2d").value = Number(betting2d);
+            }else{
+                document.getElementById(number2d+"2d").value = Number(document.getElementById(number2d+"2d").value) + Number(betting2d);
+            }
+            // totbet4d += Number(betting4d);
+        }
+
+
+        var ambil4d = document.getElementById(number4d+"4d").value;
+        var ambil3d = document.getElementById(number3d+"3d").value;
+        var ambil2d = document.getElementById(number2d+"2d").value;
+
+        if (Number(ambil4d) > max4d) {
+            document.getElementById("sementara").innerHTML = "";
+            document.getElementById("cekerror").value = "1";
+            alert("Bet " +number4d+" \n Melebihi max solo "+max4d);
+            return false;
+        }
+        if (Number(ambil3d) > max3d) {
+            document.getElementById("sementara").innerHTML = "";
+            document.getElementById("cekerror").value = "1";
+            alert("Bet " +number3d+" \n Melebihi max solo "+max3d);
+            return false;
+        }
+        if (Number(ambil2d) > max2d) {
+            document.getElementById("sementara").innerHTML = "";
+            document.getElementById("cekerror").value = 1;
+            alert("Bet " +number2d+" \n Melebihi max solo "+max2d);
+            return false;
+        }
+    }
+    document.getElementById("cekerror").value = 0;
+}
+function checkbb(a,check){
+    var number = document.getElementById("r"+a+"n").value;
+    if(check=="0"){
+      document.getElementById('check'+a).value = 1;
+       if (number != '') {
+         shuffle(a);
+       }
+    }else{
+      document.getElementById('check'+a).value = 0;
+      shuffle(a);
+    }
+}
+
+function checkAll(source) {
+  checkboxes = $('.centang');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+    if (source.checked) {
+      checkboxes[i].value = 1;
+    }else{
+      checkboxes[i].value = 0;
+    }
+  }
+
+}
+
+function submitshuffle(){
+    document.getElementById('contentquick4d').classList.remove("hidden");
+    var ct = document.getElementById('totalrow').value;
+    for(var a=11; a<=Number(ct)+10; a++) {
+        var number = document.getElementById("r"+a+"n").value;
+        if(number.length>1){
+            shuffle(a);
+        }
+    }
+}
+
+function changeType(elem){
+    const tabList = document.querySelectorAll('.games-tab')
+    const ccName = document.querySelectorAll('.cc')
+    const getId = $(elem).attr('id')
+    tabList.forEach(function(tab){
+        tab.classList.remove('active-tab')
+        if(is_lite()){
+            tab.style.color = 'black'
+        }
+    })
+    if(!is_lite()){
+        ccName.forEach(function(e){
+            e.className = `cc ${getId}-content`;
+        })
+    }
+    elem.classList.add('active-tab')
+    if(is_lite()){
+        elem.style.color = 'orange'
+    }
+
+    if (getId == 'bb') {
+        document.getElementById('typex').value = "A";
+        document.getElementById('ganti').value = "F";
+    }else if(getId == 'discount'){
+        document.getElementById('typex').value = "D";
+        document.getElementById('ganti').value = "D";
+    }else if(getId == 'full'){
+        document.getElementById('typex').value = "B";
+        document.getElementById('ganti').value = "F";
+    }else if(getId == 'prize123'){
+        document.getElementById('typex').value = "P";
+        document.getElementById('ganti').value = "F";
+    }else if(getId == 'wild'){
+        document.getElementById('typex').value = "W";
+        document.getElementById('ganti').value = "F";
+    }
+}
+
+function Scrolldown() {
+     $('html, body').animate({
+             scrollTop: $("#pindah").offset().top
+        }, 1500);
+}
+
+window.onload = Scrolldown;
+
+var flag = 0;
+$("#kirimkan").click(function () {
+    var dataString = {};
+    var url_send = $('#route_send').val();
+    dataString["totalrow"] = getVal('totalrow');
+    dataString["sar"] = getVal('sar');
+    dataString["type"] = getVal('typex');
+    dataString["ganti"] = getVal('ganti');
+    dataString["game"] = "4d";
+    ans = confirm("proses.???");
+    if (ans) {
+        $("#preloader").css({'display': 'block'})
+        var ct = dataString["totalrow"];
+        for (x = 11; x <= Number(ct)+10; x++) {
+            dataString["r" + x + "n"] = document.getElementById('r'+ x + 'n').value;
+            dataString["nomor3d" + x] = document.getElementById('nomor3d'+ x).value;
+            dataString["nomor2d" + x] = document.getElementById('nomor2d'+ x).value;
+            dataString["r" + x + "4d"] = document.getElementById('r'+ x + '4d').value;
+            dataString["r" + x + "3d"] = document.getElementById('r'+ x + '3d').value;
+            dataString["r" + x + "2d"] = document.getElementById('r'+ x + '2d').value;
+            dataString["allbet" + x] = document.getElementById('allbet'+ x).value;
+            dataString["tr" + x] = document.getElementById('tr'+ x).value;
+        }
+        if (flag == 1) {
+            alert('Bet anda masih diproses !');
+            return false;
+        }
+
+        var totalduit = Number(removecomma(document.getElementById('totalbet').innerHTML));
+        var pulus = getVal('duitku');
+
+        flag = 1;
+        $.ajax({
+            type: 'POST',
+            url: url_send,
+            data: dataString,
+            success: function (data) {
+                flag = 0;
+                sendbet_mobile(data,'4d',getVal('sar'))
+            },
+            error: function () {
+                alert('failure');
+            }
+
+        }).done(function (data) {
+            flag = 0;
+        });
+        document.getElementById('totalbet').innerHTML = "0";
+    } else {}
+});
+
+function getVal(input) {
+    return $(`#${input}`).val();
+}

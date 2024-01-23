@@ -1,0 +1,80 @@
+(function ($) {
+    $.fn.inputFilter = function (inputFilter) {
+        return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value.replace(/\,/g, '.');
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+            }
+            this.value = this.value.replace(/\,/g, '.');
+        });
+    };
+}(jQuery));
+
+//number only
+$(".onlyNumber").inputFilter(function (value) {
+    return /^\d*$/.test(value);
+});
+
+//number + dot
+$(".numberDot").inputFilter(function (value) {
+    return /^\d*[\.\,]?(?:\d{1,2})?$/.test(value);
+});
+
+//number + star
+$(".numberStars").inputFilter(function (value) {
+    return /^[\d\*]*$/.test(value);
+});
+
+//off autocomplete + pattern + inputmode keyboard
+$(".onlyNumber").attr({ autocomplete: "off", pattern: "[0-9]*", inputmode: "numeric" });
+$(".numberDot").attr({ autocomplete: "off", pattern: "[0-9]*", inputmode: "decimal" });
+$(".numberStars").attr('autocomplete', 'off');
+
+//Format Comma
+function Comma(number) {
+    number = '' + number;
+    if (number.length > 3) {
+        var mod = number.length % 3;
+        var output = (mod > 0 ? (number.substring(0, mod)) : '');
+        for (i = 0; i < Math.floor(number.length / 3); i++) {
+            if ((mod == 0) && (i == 0))
+                output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+            else
+                output += '.' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+        }
+        return (output);
+    } else return number;
+}
+
+function removecomma(a) {
+    var res = '';
+    for (i = 0; i < a.length; i++) {
+        if (a.substr(i, 1) == ".") { } else {
+            res += a.substr(i, 1)
+        }
+    }
+    return res;
+}
+
+function number_format(number) {
+    //create format number
+    var formatter = new Intl.NumberFormat('id-ID', {
+        currency: 'IDR',
+    });
+
+    return formatter.format(number);
+}
+
+function balanceProtect(balance, betting) {
+    balance = balance.replace('.', '')
+    if (Number(balance) < Number(betting)) {
+        alert(`Total Order Rp. ${number_format(betting)} \n Maaf...Dana Anda Tidak Mencukupi.`)
+        return false;
+    }
+    return true;
+}

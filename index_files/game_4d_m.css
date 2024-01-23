@@ -1,0 +1,45 @@
+.alert-bet{
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    transition: opacity 0.5s;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    font-weight: bold;
+}
+.scrollup{
+    width: 45px;
+    border: 1px solid white;
+    border-radius: 30px;
+    position: fixed;
+    bottom: 47px;
+    right: 13px;
+    background-color: #ffffff;
+    opacity: 0.5;
+    z-index: 99;
+}
+.cc{
+  background-color: #417487;
+}
+
+
+@media only screen and (max-width: 320px) {
+  .panel-blue{
+    padding-top: 10px;
+    padding: 0px;
+  }
+  .pagecontent{
+    padding-top: 10px !important;
+    padding: 0px;
+  }
+}
+table tr td{
+  padding: 10px 2px !important;
+  vertical-align: middle !important;
+}
+.centang{
+  width: 18px;
+  height: 18px;
+  margin: auto;
+}

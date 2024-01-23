@@ -1,0 +1,12 @@
+.error-security {
+    width: 80%;
+    color: #FFFF00;
+    background-color: #f44336;
+    border-color: #ebccd1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+}

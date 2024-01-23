@@ -1,0 +1,349 @@
+.bank-sprite {
+    background: url(/assets/img/banks-sprite-d.png) no-repeat;
+    width: 100px;
+    height: 30px;
+}
+
+.bank-sprite.bca {
+    background-position: 0px 0px;
+}
+.bank-sprite.svg.bca {
+    -webkit-mask-position: 0px 0px;
+    mask-position: 0px 0px;
+}
+.bank-sprite.bni {
+    background-position: -100px 0px;
+}
+.bank-sprite.svg.bni {
+    -webkit-mask-position: -58px 0px;
+    mask-position: -58px 0px;
+}
+.bank-sprite.bri {
+    background-position: -200px 0px;
+}
+.bank-sprite.svg.bri {
+    -webkit-mask-position: -120px 0px;
+    mask-position: -120px 0px;
+}
+.bank-sprite.cimb {
+    background-position: -300px 0px;
+}
+.bank-sprite.svg.cimb {
+    -webkit-mask-position: -180px 0px;
+    mask-position: -180px 0px;
+}
+.bank-sprite.jenius {
+    background-position: -400px 0px;
+}
+.bank-sprite.svg.jenius {
+    -webkit-mask-position: -400px 0px;
+    mask-position: -400px 0px;
+}
+.bank-sprite.kospin {
+    background-position: -500px 0px;
+}
+.bank-sprite.svg.kospin {
+    -webkit-mask-position: -300px 0px;
+    mask-position: -300px 0px;
+}
+.bank-sprite.mandiri {
+    background-position: -600px 0px;
+}
+.bank-sprite.svg.mandiri {
+    -webkit-mask-position: -359px 0px;
+    mask-position: -359px 0px;
+}
+.bank-sprite.maybank {
+    background-position: -700px 0px;
+}
+.bank-sprite.svg.maybank {
+    -webkit-mask-position: -420px 0px;
+    mask-position: -420px 0px;
+}
+.bank-sprite.mega {
+    background-position: -800px 0px;
+}
+.bank-sprite.svg.mega {
+    -webkit-mask-position: -480px 0px;
+    mask-position: -480px 0px;
+}
+.bank-sprite.panin {
+    background-position: -900px 0px;
+}
+.bank-sprite.svg.panin {
+    -webkit-mask-position: -539px 0px;
+    mask-position: -539px 0px;
+}
+.bank-sprite.permata {
+    background-position: -1000px 0px;
+}
+
+.bank-sprite.svg.permata {
+    -webkit-mask-position: -600px 0px;
+    mask-position: -600px 0px;
+}
+
+.bank-sprite.voucher88 {
+    background-position: -1100px 0px;
+}
+
+.bank-sprite.sinarmas {
+    background-position: -1946px 0px;
+}
+.bank-sprite.svg.sinarmas {
+    -webkit-mask-position: -1166px 0px;
+    mask-position: -1166px 0px;
+}
+
+.bank-sprite.bsi {
+    background-position: -1238px 0px;
+    width: 44px;
+}
+.bank-sprite.dana {
+    background-position: -1385px 0px;
+}
+.bank-sprite.danamon {
+    background-position: -1485px 0px;
+}
+.bank-sprite.gopay {
+    background-position: -1588px 0px;
+}
+.bank-sprite.linkaja {
+    background-position: -1687px 0px;
+    width: 84px;
+}
+.bank-sprite.ocbc {
+    background-position: -1770px 0px;
+}
+.bank-sprite.ovo {
+    background-position: -1869px 0px;
+    width: 78px;
+}
+@media screen and (max-width: 440px) {
+    .bank-sprite {
+        background-size: 1233px;
+        width: 60px;
+        height: 20px;
+    }
+
+    .bank-sprite.bca {
+        background-position: 1px 0px;
+    }
+
+    .bank-sprite.bni {
+        background-position: -58px 0px;
+    }
+
+    .bank-sprite.bri {
+        background-position: -117px 0px;
+    }
+
+    .bank-sprite.cimb {
+        background-position: -177px 0px;
+    }
+
+    .bank-sprite.jenius {
+        background-position: -236px 0px;
+    }
+
+    .bank-sprite.kospin {
+        background-position: -294px 0px;
+    }
+
+    .bank-sprite.mandiri {
+        background-position: -353px 0px;
+    }
+
+    .bank-sprite.maybank {
+        background-position: -413px 0px;
+    }
+
+    .bank-sprite.mega {
+        background-position: -473px 0px;
+    }
+
+    .bank-sprite.panin {
+        background-position: -531px 0px;
+    }
+
+    .bank-sprite.permata {
+        background-position: -590px 0px;
+    }
+
+    .bank-sprite.voucher88 {
+        background-position: -649px 0px;
+    }
+
+    .bank-sprite.sinarmas {
+        background-position: -1148px 0px;
+    }
+
+    .bank-sprite.bsi {
+        background-position: -732px 0px;
+        width: 25px;
+    }
+
+    .bank-sprite.dana {
+        background-position: -818px 0px;
+    }
+
+    .bank-sprite.danamon {
+        background-position: -878px 0px;
+    }
+
+    .bank-sprite.gopay {
+        background-position: -938px 0px;
+    }
+
+    .bank-sprite.linkaja {
+        background-position: -997px 0px;
+        width: 49px;
+    }
+
+    .bank-sprite.ocbc {
+        background-position: -1045px 0px;
+    }
+
+    .bank-sprite.ovo {
+        background-position: -1104px 0px;
+        width: 46px;
+    }
+}
+.payment-partners-new .box-bank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    transform: scale(1);
+}
+.box-bank-scale {
+    margin-left: -13px;
+    margin-top: 0;
+}
+.bank-status .bank-status-item .bank-status-text-wrapper {
+    justify-content: end !important;
+}
+.bank-status .bank-status-item .bank-status-text-wrapper .bank-status-text {
+    width: 60px;
+}
+
+
+
+/* ICON CONTACT */
+.social-sprite {
+    background: url(/assets/img/social-sprite-d.png) no-repeat;
+    /* position: absolute !important;
+    bottom: 7px; */
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.live-chat-icon{
+	height: 57px !important;
+	width: 93px !important;
+	background-position: -958px center;
+ }
+
+ .line-icon{
+	height: 60px !important;
+	width: 57px !important;
+	background-position: -335px center;
+ }
+
+ .whatsapp-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -503px center;
+ }
+
+ .wechat-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -280px center;
+ }
+
+ .facebook-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -168px center;
+ }
+
+ .twitter-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -224px center;
+ }
+
+ .instagram-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -392px center;
+ }
+
+ .youtube-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -560px center;
+ }
+
+ .telegram-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -896px center
+ }
+
+ .pinterest-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -672px center;
+ }
+
+ .linkedin-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -728px center;
+ }
+
+ .skype-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -784px center;
+ }
+
+ .ctelegram-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -896px center
+ }
+
+ .tiktok-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -1056px center
+ }
+
+ .blog-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -616px center
+ }
+
+ .app-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -840px center
+ }
+
+ .info-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -448px center
+ }
+
+ .link-icon{
+	height: 57px !important;
+	width: 56px !important;
+	background-position: -448px center
+ }
