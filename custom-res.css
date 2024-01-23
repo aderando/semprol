@@ -1,0 +1,55 @@
+html {
+    background: white;
+}
+body {
+    max-width: 390px !important;
+    max-height: 844px !important;
+} 
+.uy {
+    position: fixed;
+    top: 20px;
+    left: 430px;
+    z-index: 999999999;
+}
+.mb-sidenav {
+    margin-top: 20px !important;
+    margin-left: 20px !important;
+    max-height: 844px !important;
+}
+
+.mb-sidenav .side-link-container {
+    opacity: 1 !important;
+}
+
+#raise {
+    display: none;
+}
+
+header {
+    position: relative !important;
+}
+
+.overlay-sidebar {
+    background: none !important;
+}
+
+.body-mobile {
+    margin-top: 20px !important;
+    margin-left: 20px !important;
+}
+
+.inpormasi {
+    border: 1px solid #868686;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.hitung {
+    border: 1px solid #868686;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+input[type=number], input[type=tel], input[type=text], textarea, .numberDot {
+    border: 1px solid #818285;
+}
